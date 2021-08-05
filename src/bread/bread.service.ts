@@ -4,11 +4,12 @@ import { UpdateBreadDto } from './dto/update-bread.dto';
 import { Bread, breadDocument } from "./schemas/bread.schema";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
+import type { ObjectId } from "mongoose";
 
 @Injectable()
 export class BreadService {
   constructor(
-    @InjectModel(Bread.name )
+    @InjectModel(Bread.name)
     private breadModel: Model<breadDocument>,
   ) {}
 
@@ -21,15 +22,15 @@ export class BreadService {
     return this.breadModel.find().exec();
   }
 
-  findOne(name: string) {
-    return `This action returns a #${name} bread`;
+  async findOne(id: ObjectId) {
+    return this.breadModel.findById(id).exec();
   }
 
-  update(name: string, updateBreadDto: UpdateBreadDto) {
-    return `This action updates a #${name} bread`;
+  async update(id: ObjectId, updateBreadDto: UpdateBreadDto) {
+    return `This action updates a #${id} bread`;
   }
 
-  remove(id: number) {
+  async remove(id: ObjectId) {
     return `This action removes a #${id} bread`;
   }
 }
