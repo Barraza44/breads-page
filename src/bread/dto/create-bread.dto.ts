@@ -1,5 +1,6 @@
 import { Ingredients } from "../Ingredients";
-import { IsString, Max, Min, IsNumber, IsUrl, Length, ValidateNested, MaxLength } from "class-validator";
+import { IsString, Max, Min, IsNumber, IsUrl, Length, ValidateNested, IsArray } from "class-validator";
+import { Type } from "class-transformer";
 
 export class CreateBreadDto {
   @IsString()
@@ -18,9 +19,8 @@ export class CreateBreadDto {
   @IsUrl()
   imageURI: string;
 
-  @ValidateNested()
-  @MaxLength(20, {
-    each: true
-  })
+  @IsArray()
+  @ValidateNested({each: true})
+  @Type(() => Ingredients)
   ingredients: Ingredients[];
 }
