@@ -3,7 +3,7 @@ import { IsString, Max, Min, IsNumber, IsUrl, Length, ValidateNested, MaxLength 
 
 export class CreateBreadDto {
   @IsString()
-  @Length(1, 100)
+  @Length(2, 100)
   name: string;
 
   @IsNumber()
