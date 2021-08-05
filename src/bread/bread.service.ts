@@ -39,6 +39,10 @@ export class BreadService {
   }
 
   async remove(id: ObjectId) {
-    return `This action removes a #${id} bread`;
+    const data = await this.breadModel.findById(id).exec();
+    if(!data) {
+      throw new HttpException("Unable to remove requested resource", HttpStatus.NOT_FOUND);
+    }
+    return this.breadModel.findByIdAndDelete(id);
   }
 }
