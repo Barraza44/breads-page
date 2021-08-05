@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { CreateBreadDto } from './dto/create-bread.dto';
 import { UpdateBreadDto } from './dto/update-bread.dto';
 import { Bread, breadDocument } from "./schemas/bread.schema";
@@ -23,11 +23,18 @@ export class BreadService {
   }
 
   async findOne(id: ObjectId) {
+    const data = await this.breadModel.findById(id).exec();
+    if(!data) {
+      throw new HttpException("Unable to find requested resource", HttpStatus.NOT_FOUND);
+    }
     return this.breadModel.findById(id).exec();
   }
 
   async update(id: ObjectId, updateBreadDto: UpdateBreadDto) {
-    return `This action updates a #${id} bread`;
+    const data = await this.breadModel.findById(id).exec();
+    if(!data) {
+      throw new HttpException("Unable to find requested resource", HttpStatus.NOT_FOUND);
+    }
   }
 
   async remove(id: ObjectId) {
