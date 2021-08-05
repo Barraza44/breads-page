@@ -33,8 +33,9 @@ export class BreadService {
   async update(id: ObjectId, updateBreadDto: UpdateBreadDto) {
     const data = await this.breadModel.findById(id).exec();
     if(!data) {
-      throw new HttpException("Unable to find requested resource", HttpStatus.NOT_FOUND);
+      throw new HttpException("Unable to patch requested resource", HttpStatus.NOT_FOUND);
     }
+    return this.breadModel.findByIdAndUpdate(id, updateBreadDto);
   }
 
   async remove(id: ObjectId) {
