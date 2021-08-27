@@ -1,8 +1,7 @@
-import React, {PropsWithChildren} from "react";
+import React from "react";
 import { motion } from "framer-motion";
 
-// @ts-ignore
-const Button = ({size, children}: PropsWithChildren<btnProps>) => {
+const Button = ({size, children, layout}: btnProps) => {
   return (
     <motion.button
       initial={{
@@ -16,7 +15,7 @@ const Button = ({size, children}: PropsWithChildren<btnProps>) => {
       whileTap={{
         scale: 0.85,
       }}
-      className={`${size} p-2.5 rounded-xl font-secondary text-base font-medium`}
+      className={`${size} p-2.5 rounded-xl font-secondary text-base lg:text-xl font-medium mt-4 ${layout}`}
     >
       {children}
     </motion.button>
@@ -26,5 +25,6 @@ export default Button;
 
 interface btnProps {
   size: string,
-  children: string
+  children: string,
+  layout: string
 }
