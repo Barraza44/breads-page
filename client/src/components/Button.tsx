@@ -26,5 +26,5 @@ export default Button;
 interface btnProps {
   size: string,
   children: string,
-  layout: string
+  layout?: string
 }
